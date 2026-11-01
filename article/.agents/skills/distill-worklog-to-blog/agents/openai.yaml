@@ -1,0 +1,4 @@
+interface:
+  display_name: "工作经验沉淀博客"
+  short_description: "分析工作记录、业务脱敏、生成配图并沉淀为结构化博客文章"
+  default_prompt: "使用 $distill-worklog-to-blog 分析本次工作记录，脱敏并生成配图博客，保存到当天的 blog 目录。"

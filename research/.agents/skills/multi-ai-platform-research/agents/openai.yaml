@@ -1,0 +1,4 @@
+interface:
+  display_name: "Multi AI Platform Research"
+  short_description: "Cross-platform AI research via ego-lite or Chrome"
+  default_prompt: "Use $multi-ai-platform-research with ego-lite and inherited login state to research DeepSeek, Qwen, and Doubao, save verified raw Markdown, synthesize consensus and differences, then close the task space."

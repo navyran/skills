@@ -1,0 +1,27 @@
+{
+  "name": "save-notes-skill",
+  "version": "1.0.0",
+  "description": "智能笔记保存工具，能够从网页提取内容并自动保存到git仓库",
+  "main": "scripts/save-notes.js",
+  "scripts": {
+    "start": "node scripts/save-notes.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "notes",
+    "save",
+    "git",
+    "automation",
+    "openclaw",
+    "skill"
+  ],
+  "author": "OpenClaw AI Assistant",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "handlebars": "^4.7.8"
+  }
+}

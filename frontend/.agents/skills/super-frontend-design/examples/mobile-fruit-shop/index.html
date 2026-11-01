@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>鲜果集 — 手机生鲜商城</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://images.pexels.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f6f8fa;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --text-muted: #6b7280;
+      --text-light: #9ca3af;
+      --primary: #22c55e;
+      --primary-dark: #16a34a;
+      --accent: #f97316;
+      --accent-light: #fff7ed;
+      --danger: #ef4444;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.1);
+      --radius: 1rem;
+      --radius-sm: 0.75rem;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans SC', 'Nunito', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding-bottom: calc(80px + var(--safe-bottom));
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a { color: inherit; text-decoration: none; }
+
+    button { font-family: inherit; border: none; background: none; cursor: pointer; }
+
+    /* 图标通用样式 */
+    .icon {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      stroke: currentColor;
+      flex-shrink: 0;
+    }
+
+    .icon--sm { width: 16px; height: 16px; }
+
+    .icon--lg { width: 24px; height: 24px; }
+
+    /* 顶部栏 */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--surface);
+      padding: 0.75rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header__top {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .location .icon { color: var(--primary); }
+
+    .search {
+      flex: 1;
+      position: relative;
+    }
+
+    .search__input {
+      width: 100%;
+      height: 2.5rem;
+      padding: 0 0.875rem 0 2.5rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--bg);
+      font-size: 0.875rem;
+      color: var(--text);
+      outline: none;
+    }
+
+    .search__input::placeholder { color: var(--text-light); }
+
+    .search__icon {
+      position: absolute;
+      left: 0.875rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+
+    .header__actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .icon-btn {
+      position: relative;
+      width: 2.25rem;
+      height: 2.25rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--text);
+    }
+
+    .icon-btn:active { background: var(--bg); }
+
+    .badge {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      min-width: 1rem;
+      height: 1rem;
+      padding: 0 0.25rem;
+      background: var(--danger);
+      color: #fff;
+      font-size: 0.625rem;
+      font-weight: 700;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+    }
+
+    /* Banner */
+    .banner {
+      margin: 1rem;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+
+    .banner__image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .banner__content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1.25rem;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.15) 70%, transparent 100%);
+      color: #fff;
+    }
+
+    .banner__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      width: fit-content;
+      padding: 0.25rem 0.625rem;
+      background: var(--accent);
+      border-radius: 999px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .banner__title {
+      font-size: 1.375rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 0.375rem;
+      max-width: 70%;
+    }
+
+    .banner__desc {
+      font-size: 0.8125rem;
+      opacity: 0.9;
+      margin-bottom: 0.875rem;
+    }
+
+    .banner__btn {
+      width: fit-content;
+      padding: 0.5rem 1rem;
+      background: #fff;
+      color: var(--primary-dark);
+      border-radius: 999px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    /* 分类 */
+    .section { margin-bottom: 1.25rem; }
+
+    .section__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .section__title {
+      font-size: 1.0625rem;
+      font-weight: 700;
+    }
+
+    .section__more {
+      display: flex;
+      align-items: center;
+      gap: 0.125rem;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .categories {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding: 0 1rem;
+      scrollbar-width: none;
+    }
+
+    .categories::-webkit-scrollbar { display: none; }
+
+    .category {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.625rem 0.875rem;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      min-width: 4.5rem;
+    }
+
+    .category__icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+    }
+
+    .category__icon--red { background: linear-gradient(135deg, #f87171, #ef4444); }
+    .category__icon--orange { background: linear-gradient(135deg, #fb923c, #f97316); }
+    .category__icon--yellow { background: linear-gradient(135deg, #facc15, #eab308); }
+    .category__icon--green { background: linear-gradient(135deg, #4ade80, #22c55e); }
+    .category__icon--purple { background: linear-gradient(135deg, #c084fc, #a855f7); }
+    .category__icon--teal { background: linear-gradient(135deg, #2dd4bf, #14b8a6); }
+
+    /* 商品列表 */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      padding: 0 1rem;
+    }
+
+    .product {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product__image-wrap {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .product__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .product:active .product__image { transform: scale(1.03); }
+
+    .product__tag {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      padding: 0.125rem 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.625rem;
+      font-weight: 700;
+      border-radius: 999px;
+    }
+
+    .product__fav {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      display: grid;
+      place-items: center;
+      color: var(--text-light);
+    }
+
+    .product__fav.active { color: var(--danger); }
+
+    .product__info { padding: 0.75rem; flex: 1; display: flex; flex-direction: column; }
+
+    .product__name {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      line-height: 1.35;
+    }
+
+    .product__spec {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-bottom: 0.625rem;
+    }
+
+    .product__bottom {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .product__price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.125rem;
+      color: var(--danger);
+    }
+
+    .product__price-symbol { font-size: 0.6875rem; }
+
+    .product__price-num { font-size: 1.125rem; font-weight: 800; }
+
+    .product__price-unit { font-size: 0.6875rem; color: var(--text-light); }
+
+    .add-btn {
+      width: 1.875rem;
+      height: 1.875rem;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);
+    }
+
+    .add-btn:active { background: var(--primary-dark); transform: scale(0.95); }
+
+    /* 数量控制 */
+    .qty {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+
+    .qty__btn {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+    }
+
+    .qty__btn:active { background: var(--bg); }
+
+    .qty__num {
+      min-width: 1.25rem;
+      text-align: center;
+      font-size: 0.8125rem;
+      font-weight: 600;
+    }
+
+    /* 底部导航 */
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      background: var(--surface);
+      border-top: 1px solid rgba(0, 0, 0, 0.04);
+      padding: 0.5rem 0 calc(0.5rem + var(--safe-bottom));
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.75rem;
+      color: var(--text-light);
+      font-size: 0.6875rem;
+      position: relative;
+    }
+
+    .nav-item.active { color: var(--primary); }
+
+    .nav-item__badge {
+      position: absolute;
+      top: 0;
+      right: 0.5rem;
+      min-width: 0.875rem;
+      height: 0.875rem;
+      padding: 0 0.2rem;
+      background: var(--danger);
+      color: #fff;
+      font-size: 0.5625rem;
+      font-weight: 700;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+    }
+
+    /* 提示条 */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 100px;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(31, 41, 55, 0.92);
+      color: #fff;
+      padding: 0.625rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.8125rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 200;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header__top">
+      <div class="location">
+        <!-- Lucide: MapPin -->
+        <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        <span>深圳市南山区</span>
+        <!-- Lucide: ChevronDown -->
+        <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m6 9 6 6 6-6"/>
+        </svg>
+      </div>
+
+      <div class="search">
+        <!-- Lucide: Search -->
+        <svg class="icon search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+        <input type="text" class="search__input" placeholder="搜索新鲜水果..." />
+      </div>
+
+      <div class="header__actions">
+        <button class="icon-btn" aria-label="消息通知">
+          <!-- Lucide: Bell -->
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+          </svg>
+        </button>
+        <button class="icon-btn" aria-label="购物车">
+          <!-- Lucide: ShoppingCart -->
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+          </svg>
+          <span class="badge" id="cartBadge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="banner">
+    <img
+      class="banner__image"
+      src="https://images.pexels.com/photos/1683916/pexels-photo-1683916.jpeg?auto=compress&cs=tinysrgb&w=800"
+      alt="新鲜水果市场"
+      loading="eager"
+      decoding="async"
+    />
+    <div class="banner__content">
+      <span class="banner__tag">
+        <!-- Lucide: Zap -->
+        <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        限时特惠
+      </span>
+      <h2 class="banner__title">当季鲜果<br />满 59 减 15</h2>
+      <p class="banner__desc">产地直采，24小时鲜达</p>
+      <a href="#products" class="banner__btn">
+        立即抢购
+        <!-- Lucide: ChevronRight -->
+        <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m9 18 6-6-6-6"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__header">
+      <h2 class="section__title">水果分类</h2>
+      <a href="#" class="section__more">
+        全部
+        <!-- Lucide: ChevronRight -->
+        <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m9 18 6-6-6-6"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="categories">
+      <button class="category">
+        <span class="category__icon category__icon--red">
+          <!-- Lucide: Apple -->
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 6.528V3a1 1 0 0 1 1-1h0"/><path d="M17 8c0-2.5-2-2.5-2-5 0 0-3 0-3 3"/><path d="M12 20c-5.5 0-8.5-3.5-8.5-8.5 0-4 2.5-6.5 6.5-6.5 1.5 0 2.5.5 3.5 1.5 1-1 2.5-1.5 3.5-1.5 4 0 6.5 2.5 6.5 6.5 0 5-3 8.5-8.5 8.5Z"/>
+          </svg>
+        </span>
+        <span>时令</span>
+      </button>
+      <button class="category">
+        <span class="category__icon category__icon--orange">
+          <!-- Lucide: Citrus -->
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M12 3v18"/><path d="M3 12h18"/>
+          </svg>
+        </span>
+        <span>柑橘</span>
+      </button>
+      <button class="category">
+        <span class="category__icon category__icon--yellow">
+          <!-- Lucide: Banana -->
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 13c3.5-2 8.5-2 12 0"/><path d="M16 4c-3 2.5-3.5 10.5-2 15"/><path d="M9 10c-2.5 3-1.5 7 1 10"/><path d="M20.5 5.5c-3-2-7.5-2-10.5 0"/>
+          </svg>
+        </span>
+        <span>热带</span>
+      </button>
+      <button class="category">
+        <span class="category__icon category__icon--green">
+          <!-- Lucide: Cherry -->
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 17c0 1.7-1.3 3-3 3s-3-1.3-3-3 1.3-3 3-3 3 1.3 3 3Z"/><path d="M9 17c0 1.7-1.3 3-3 3s-3-1.3-3-3 1.3-3 3-3 3 1.3 3 3Z"/><path d="M12 11v-2c0-2 2-4 4-4"/><path d="M9 11c-1.5-2-4-3-6-3"/>
+          </svg>
+        </span>
+        <span>浆果</span>
+      </button>
+      <button class="category">
+        <span class="category__icon category__icon--purple">
+          <!-- Lucide: Grape -->
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 5V3"/><path d="M16 8c-2 0-3.5 1.5-3.5 3.5"/><circle cx="12" cy="19" r="2"/><circle cx="16" cy="19" r="2"/><circle cx="8" cy="19" r="2"/><circle cx="14" cy="15" r="2"/><circle cx="10" cy="15" r="2"/><circle cx="12" cy="11" r="2"/>
+          </svg>
+        </span>
+        <span>葡萄</span>
+      </button>
+      <button class="category">
+        <span class="category__icon category__icon--teal">
+          <!-- Lucide: ConciergeBell -->
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 20h18"/><path d="M17 20v-9a3 3 0 0 0-3-3H8v9"/><path d="M17 8V5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v3"/>
+          </svg>
+        </span>
+        <span>礼盒</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="section" id="products">
+    <div class="section__header">
+      <h2 class="section__title">今日鲜选</h2>
+      <a href="#" class="section__more">
+        查看更多
+        <!-- Lucide: ChevronRight -->
+        <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m9 18 6-6-6-6"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="products">
+      <!-- 草莓 -->
+      <article class="product" data-id="1" data-name="丹东红颜草莓" data-price="39.9">
+        <div class="product__image-wrap">
+          <img
+            class="product__image"
+            src="https://images.pexels.com/photos/1998893/pexels-photo-1998893.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="丹东红颜草莓"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="product__tag">热卖</span>
+          <button class="product__fav" aria-label="收藏">
+            <!-- Lucide: Heart -->
+            <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="product__info">
+          <h3 class="product__name">丹东红颜草莓</h3>
+          <p class="product__spec">500g · 单果15g+</p>
+          <div class="product__bottom">
+            <div class="product__price">
+              <span class="product__price-symbol">¥</span>
+              <span class="product__price-num">39.9</span>
+              <span class="product__price-unit">/盒</span>
+            </div>
+            <div class="product__action">
+              <button class="add-btn" aria-label="加入购物车">
+                <!-- Lucide: Plus -->
+                <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h14"/><path d="M12 5v14"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 蓝莓 -->
+      <article class="product" data-id="2" data-name="智利进口蓝莓" data-price="29.9">
+        <div class="product__image-wrap">
+          <img
+            class="product__image"
+            src="https://images.pexels.com/photos/26151088/pexels-photo-26151088.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="智利进口蓝莓"
+            loading="lazy"
+            decoding="async"
+          />
+          <button class="product__fav" aria-label="收藏">
+            <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="product__info">
+          <h3 class="product__name">智利进口蓝莓</h3>
+          <p class="product__spec">125g×2盒 · 果径12mm+</p>
+          <div class="product__bottom">
+            <div class="product__price">
+              <span class="product__price-symbol">¥</span>
+              <span class="product__price-num">29.9</span>
+              <span class="product__price-unit">/组</span>
+            </div>
+            <button class="add-btn" aria-label="加入购物车">
+              <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14"/><path d="M12 5v14"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 芒果 -->
+      <article class="product" data-id="3" data-name="海南金煌芒果" data-price="19.9">
+        <div class="product__image-wrap">
+          <img
+            class="product__image"
+            src="https://images.pexels.com/photos/38006276/pexels-photo-38006276.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="海南金煌芒果"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="product__tag">直降</span>
+          <button class="product__fav" aria-label="收藏">
+            <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="product__info">
+          <h3 class="product__name">海南金煌芒果</h3>
+          <p class="product__spec">2斤装 · 单果200g+</p>
+          <div class="product__bottom">
+            <div class="product__price">
+              <span class="product__price-symbol">¥</span>
+              <span class="product__price-num">19.9</span>
+              <span class="product__price-unit">/份</span>
+            </div>
+            <button class="add-btn" aria-label="加入购物车">
+              <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14"/><path d="M12 5v14"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 橙子 -->
+      <article class="product" data-id="4" data-name="赣南脐橙" data-price="25.8">
+        <div class="product__image-wrap">
+          <img
+            class="product__image"
+            src="https://images.pexels.com/photos/32486612/pexels-photo-32486612.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="赣南脐橙"
+            loading="lazy"
+            decoding="async"
+          />
+          <button class="product__fav" aria-label="收藏">
+            <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="product__info">
+          <h3 class="product__name">赣南脐橙</h3>
+          <p class="product__spec">3斤装 · 单果70mm+</p>
+          <div class="product__bottom">
+            <div class="product__price">
+              <span class="product__price-symbol">¥</span>
+              <span class="product__price-num">25.8</span>
+              <span class="product__price-unit">/箱</span>
+            </div>
+            <button class="add-btn" aria-label="加入购物车">
+              <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14"/><path d="M12 5v14"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 西瓜 -->
+      <article class="product" data-id="5" data-name="麒麟西瓜" data-price="18.8">
+        <div class="product__image-wrap">
+          <img
+            class="product__image"
+            src="https://images.pexels.com/photos/26950726/pexels-photo-26950726.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="麒麟西瓜"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="product__tag">新鲜</span>
+          <button class="product__fav" aria-label="收藏">
+            <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="product__info">
+          <h3 class="product__name">麒麟西瓜</h3>
+          <p class="product__spec">4-5斤 · 皮薄瓤红</p>
+          <div class="product__bottom">
+            <div class="product__price">
+              <span class="product__price-symbol">¥</span>
+              <span class="product__price-num">18.8</span>
+              <span class="product__price-unit">/个</span>
+            </div>
+            <button class="add-btn" aria-label="加入购物车">
+              <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14"/><path d="M12 5v14"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 苹果 -->
+      <article class="product" data-id="6" data-name="烟台红富士" data-price="22.9">
+        <div class="product__image-wrap">
+          <img
+            class="product__image"
+            src="https://images.pexels.com/photos/14833258/pexels-photo-14833258.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="烟台红富士"
+            loading="lazy"
+            decoding="async"
+          />
+          <button class="product__fav" aria-label="收藏">
+            <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="product__info">
+          <h3 class="product__name">烟台红富士</h3>
+          <p class="product__spec">3斤装 · 单果80mm+</p>
+          <div class="product__bottom">
+            <div class="product__price">
+              <span class="product__price-symbol">¥</span>
+              <span class="product__price-num">22.9</span>
+              <span class="product__price-unit">/箱</span>
+            </div>
+            <button class="add-btn" aria-label="加入购物车">
+              <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14"/><path d="M12 5v14"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 香蕉 -->
+      <article class="product" data-id="7" data-name="菲律宾进口香蕉" data-price="12.9">
+        <div class="product__image-wrap">
+          <img
+            class="product__image"
+            src="https://images.pexels.com/photos/18259823/pexels-photo-18259823.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="菲律宾进口香蕉"
+            loading="lazy"
+            decoding="async"
+          />
+          <button class="product__fav" aria-label="收藏">
+            <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="product__info">
+          <h3 class="product__name">菲律宾进口香蕉</h3>
+          <p class="product__spec">1kg · 软糯香甜</p>
+          <div class="product__bottom">
+            <div class="product__price">
+              <span class="product__price-symbol">¥</span>
+              <span class="product__price-num">12.9</span>
+              <span class="product__price-unit">/把</span>
+            </div>
+            <button class="add-btn" aria-label="加入购物车">
+              <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14"/><path d="M12 5v14"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 葡萄 -->
+      <article class="product" data-id="8" data-name="巨峰葡萄" data-price="35.0">
+        <div class="product__image-wrap">
+          <img
+            class="product__image"
+            src="https://images.pexels.com/photos/21383904/pexels-photo-21383904.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="巨峰葡萄"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="product__tag">新品</span>
+          <button class="product__fav" aria-label="收藏">
+            <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="product__info">
+          <h3 class="product__name">巨峰葡萄</h3>
+          <p class="product__spec">500g · 粒大饱满</p>
+          <div class="product__bottom">
+            <div class="product__price">
+              <span class="product__price-symbol">¥</span>
+              <span class="product__price-num">35.0</span>
+              <span class="product__price-unit">/盒</span>
+            </div>
+            <button class="add-btn" aria-label="加入购物车">
+              <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14"/><path d="M12 5v14"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <nav class="bottom-nav">
+    <a href="#" class="nav-item active">
+      <!-- Lucide: Home -->
+      <svg class="icon icon--lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      </svg>
+      <span>首页</span>
+    </a>
+    <a href="#" class="nav-item">
+      <!-- Lucide: Grid3X3 -->
+      <svg class="icon icon--lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+        <rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/>
+      </svg>
+      <span>分类</span>
+    </a>
+    <a href="#" class="nav-item">
+      <!-- Lucide: ShoppingBag -->
+      <svg class="icon icon--lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/>
+      </svg>
+      <span class="nav-item__badge" id="navCartBadge">0</span>
+      <span>购物车</span>
+    </a>
+    <a href="#" class="nav-item">
+      <!-- Lucide: User -->
+      <svg class="icon icon--lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+      <span>我的</span>
+    </a>
+  </nav>
+
+  <div class="toast" id="toast">已加入购物车</div>
+
+  <script>
+    // 购物车状态
+    const cart = {};
+    let totalCount = 0;
+
+    const cartBadge = document.getElementById('cartBadge');
+    const navCartBadge = document.getElementById('navCartBadge');
+    const toast = document.getElementById('toast');
+
+    function updateCart() {
+      totalCount = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
+      cartBadge.textContent = totalCount;
+      navCartBadge.textContent = totalCount;
+      navCartBadge.style.display = totalCount > 0 ? 'grid' : 'none';
+      cartBadge.style.display = totalCount > 0 ? 'grid' : 'none';
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+
+    function createQtyControl(id, name, price, container) {
+      const qty = cart[id] || 1;
+      container.innerHTML = `
+        <button class="qty__btn" data-action="dec" aria-label="减少数量">
+          <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14"/>
+          </svg>
+        </button>
+        <span class="qty__num">${qty}</span>
+        <button class="qty__btn" data-action="inc" aria-label="增加数量">
+          <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14"/><path d="M12 5v14"/>
+          </svg>
+        </button>
+      `;
+
+      container.querySelectorAll('.qty__btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const action = btn.dataset.action;
+          if (action === 'inc') {
+            cart[id] = (cart[id] || 0) + 1;
+          } else if (action === 'dec' && cart[id] > 1) {
+            cart[id] -= 1;
+          } else {
+            delete cart[id];
+            renderAddButton(id, name, price, container);
+          }
+          updateCart();
+          if (cart[id]) {
+            container.querySelector('.qty__num').textContent = cart[id];
+          }
+        });
+      });
+    }
+
+    function renderAddButton(id, name, price, container) {
+      container.innerHTML = `
+        <button class="add-btn" aria-label="加入购物车">
+          <svg class="icon icon--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14"/><path d="M12 5v14"/>
+          </svg>
+        </button>
+      `;
+      container.querySelector('.add-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        cart[id] = 1;
+        updateCart();
+        showToast(`${name} 已加入购物车`);
+        createQtyControl(id, name, price, container);
+      });
+    }
+
+    // 初始化商品交互
+    document.querySelectorAll('.product').forEach((product) => {
+      const id = product.dataset.id;
+      const name = product.dataset.name;
+      const price = product.dataset.price;
+      const actionContainer = product.querySelector('.product__action');
+
+      renderAddButton(id, name, price, actionContainer);
+    });
+
+    // 收藏按钮
+    document.querySelectorAll('.product__fav').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        btn.classList.toggle('active');
+      });
+    });
+
+    // 底部导航切换
+    document.querySelectorAll('.nav-item').forEach((item) => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.nav-item').forEach((n) => n.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+
+    // 初始化
+    updateCart();
+  </script>
+</body>
+</html>

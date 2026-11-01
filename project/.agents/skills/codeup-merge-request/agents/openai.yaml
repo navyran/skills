@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codeup 合并请求"
+  short_description: "安全检查后推送分支并创建或复用云效 Codeup 合并请求"
+  default_prompt: "Use $codeup-merge-request to push the current branch and create a Codeup merge request."

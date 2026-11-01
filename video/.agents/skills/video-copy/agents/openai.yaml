@@ -1,0 +1,6 @@
+interface:
+  display_name: "Video Copy"
+  short_description: "Copy promo videos for new products"
+  default_prompt: "Use $video-copy to copy this promo video for a new product with editable prompts."
+policy:
+  allow_implicit_invocation: true

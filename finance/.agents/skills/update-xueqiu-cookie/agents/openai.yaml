@@ -1,0 +1,4 @@
+interface:
+  display_name: "Update Xueqiu Cookie"
+  short_description: "Refresh stored Xueqiu cookie config safely"
+  default_prompt: "Use $update-xueqiu-cookie to refresh the Xueqiu cookie stored in the stock data admin tool."

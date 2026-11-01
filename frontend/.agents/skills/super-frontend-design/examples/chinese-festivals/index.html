@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>节令 · 中国传统节日</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://images.pexels.com" />
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0f0a0a;
+      --ink-light: #1a1212;
+      --paper: #f7f1e8;
+      --paper-muted: #b8aea2;
+      --cinnabar: #c53d33;
+      --cinnabar-dark: #9a2e26;
+      --gold: #d4a853;
+      --gold-light: #e8c87a;
+      --shadow: rgba(0, 0, 0, 0.45);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: var(--ink);
+      color: var(--paper);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* 导航 */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 4vw;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease;
+    }
+
+    .nav--scrolled {
+      background: rgba(15, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav__logo {
+      font-family: 'ZCOOL XiaoWei', cursive;
+      font-size: 1.75rem;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav__logo svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--cinnabar);
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+      font-size: 0.9375rem;
+      color: var(--paper-muted);
+    }
+
+    .nav__links a:hover { color: var(--gold-light); }
+
+    .nav__menu {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--paper);
+      cursor: pointer;
+    }
+
+    .nav__menu svg { width: 28px; height: 28px; }
+
+    @media (max-width: 768px) {
+      .nav__links { display: none; }
+      .nav__menu { display: block; }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 8rem 4vw 6rem;
+      overflow: hidden;
+    }
+
+    .hero__media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.75) contrast(1.05);
+    }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 70% 30%, rgba(197, 61, 51, 0.18), transparent 45%),
+        linear-gradient(180deg, rgba(15, 10, 10, 0.2) 0%, rgba(15, 10, 10, 0.72) 60%, var(--ink) 100%);
+      z-index: 1;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 880px;
+      text-align: center;
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gold-light);
+      font-size: 0.875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero__eyebrow svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--gold);
+    }
+
+    .hero__title {
+      font-family: 'ZCOOL XiaoWei', cursive;
+      font-size: clamp(3rem, 10vw, 6.5rem);
+      line-height: 1.1;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero__title span { color: var(--cinnabar); }
+
+    .hero__subtitle {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(1.0625rem, 2vw, 1.375rem);
+      color: var(--paper-muted);
+      max-width: 560px;
+      margin: 0 auto 2.75rem;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.875rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      font-size: 0.9375rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 1.75;
+    }
+
+    .btn--primary {
+      background: var(--cinnabar);
+      color: var(--paper);
+      box-shadow: 0 12px 36px rgba(197, 61, 51, 0.35);
+    }
+
+    .btn--primary:hover { background: var(--cinnabar-dark); }
+
+    .btn--ghost {
+      border: 1px solid rgba(247, 241, 232, 0.25);
+      color: var(--paper);
+    }
+
+    .btn--ghost:hover { border-color: var(--gold); color: var(--gold-light); }
+
+    /* 节日卡片 */
+    .festivals {
+      padding: 7rem 4vw;
+      background: var(--ink);
+    }
+
+    .section__header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 4rem;
+    }
+
+    .section__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--cinnabar);
+      font-size: 0.8125rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section__label svg { width: 16px; height: 16px; }
+
+    .section__title {
+      font-family: 'ZCOOL XiaoWei', cursive;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      margin-bottom: 1rem;
+    }
+
+    .section__desc {
+      color: var(--paper-muted);
+      font-family: 'Noto Serif SC', serif;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .card {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: var(--ink-light);
+      border: 1px solid rgba(247, 241, 232, 0.08);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212, 168, 83, 0.35);
+    }
+
+    .card__image {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+    }
+
+    .card__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .card:hover .card__image img { transform: scale(1.06); }
+
+    .card__date {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(15, 10, 10, 0.72);
+      backdrop-filter: blur(4px);
+      padding: 0.375rem 0.875rem;
+      border-radius: 999px;
+      font-size: 0.8125rem;
+      color: var(--gold-light);
+      border: 1px solid rgba(212, 168, 83, 0.25);
+    }
+
+    .card__body { padding: 1.5rem; }
+
+    .card__title {
+      font-family: 'ZCOOL XiaoWei', cursive;
+      font-size: 1.625rem;
+      margin-bottom: 0.375rem;
+      color: var(--paper);
+    }
+
+    .card__subtitle {
+      font-size: 0.875rem;
+      color: var(--cinnabar);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    .card__text {
+      font-size: 0.9375rem;
+      color: var(--paper-muted);
+      line-height: 1.7;
+    }
+
+    /* 引言区 */
+    .quote {
+      position: relative;
+      padding: 8rem 4vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 900px) {
+      .quote { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    .quote__image {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+    }
+
+    .quote__image img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+    }
+
+    .quote__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(15, 10, 10, 0.55) 100%);
+      pointer-events: none;
+    }
+
+    .quote__content { max-width: 520px; }
+
+    .quote__mark {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 5rem;
+      line-height: 0.5;
+      color: var(--cinnabar);
+      opacity: 0.6;
+      margin-bottom: 1rem;
+    }
+
+    .quote__text {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .quote__author {
+      color: var(--paper-muted);
+      font-size: 0.9375rem;
+    }
+
+    /* CTA */
+    .cta {
+      position: relative;
+      padding: 8rem 4vw;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .cta__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .cta__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.7) brightness(0.55);
+    }
+
+    .cta__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, var(--ink) 0%, rgba(15, 10, 10, 0.7) 30%, rgba(15, 10, 10, 0.7) 70%, var(--ink) 100%);
+      z-index: 1;
+    }
+
+    .cta__content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .cta__title {
+      font-family: 'ZCOOL XiaoWei', cursive;
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .cta__desc {
+      color: var(--paper-muted);
+      font-family: 'Noto Serif SC', serif;
+      margin-bottom: 2rem;
+    }
+
+    /* 页脚 */
+    .footer {
+      padding: 3rem 4vw;
+      text-align: center;
+      color: var(--paper-muted);
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(247, 241, 232, 0.08);
+    }
+
+    .footer__links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+      list-style: none;
+    }
+
+    .footer__links a:hover { color: var(--gold-light); }
+
+    /* 微动画 */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      animation: fadeInUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .reveal--1 { animation-delay: 0.1s; }
+    .reveal--2 { animation-delay: 0.25s; }
+    .reveal--3 { animation-delay: 0.4s; }
+  </style>
+</head>
+<body>
+  <nav class="nav" id="nav">
+    <a href="#" class="nav__logo">
+      <!-- Lucide: Sparkles -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+      </svg>
+      节令
+    </a>
+    <ul class="nav__links">
+      <li><a href="#festivals">六大节日</a></li>
+      <li><a href="#quote">节令文化</a></li>
+      <li><a href="#cta">探索更多</a></li>
+    </ul>
+    <button class="nav__menu" aria-label="打开菜单">
+      <!-- Lucide: Menu -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 5h16M4 12h16M4 19h16"/>
+      </svg>
+    </button>
+  </nav>
+
+  <header class="hero">
+    <div class="hero__media">
+      <img
+        src="https://images.pexels.com/photos/17774908/pexels-photo-17774908.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        srcset="
+          https://images.pexels.com/photos/17774908/pexels-photo-17774908.jpeg?auto=compress&cs=tinysrgb&w=640 640w,
+          https://images.pexels.com/photos/17774908/pexels-photo-17774908.jpeg?auto=compress&cs=tinysrgb&w=1280 1280w,
+          https://images.pexels.com/photos/17774908/pexels-photo-17774908.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w
+        "
+        sizes="100vw"
+        alt="中国传统建筑飞檐"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+
+    <div class="hero__content">
+      <div class="hero__eyebrow reveal reveal--1">
+        <!-- Lucide: Mountain -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m8 3 4 8 5-5 5 15H2L8 3z"/>
+        </svg>
+        中国传统节日
+      </div>
+      <h1 class="hero__title reveal reveal--2">
+        四时有序，<br />
+        <span>节令相承</span>
+      </h1>
+      <p class="hero__subtitle reveal reveal--2">
+        在岁时的轮回里，感受千年的礼俗、饮食与情感。每一个节日，都是中国人与天地、祖先和彼此对话的时刻。
+      </p>
+      <div class="hero__actions reveal reveal--3">
+        <a href="#festivals" class="btn btn--primary">
+          探索节令
+          <!-- Lucide: ArrowRight -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="#quote" class="btn btn--ghost">
+          了解文化
+          <!-- Lucide: ArrowUpRight -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="festivals" id="festivals">
+    <div class="section__header">
+      <div class="section__label">
+        <!-- Lucide: Calendar -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>
+        </svg>
+        岁时巡礼
+      </div>
+      <h2 class="section__title">六大传统节日</h2>
+      <p class="section__desc">从春节的爆竹到中秋的明月，这些节日串联起中国人对自然、家族与生活的理解。</p>
+    </div>
+
+    <div class="grid">
+      <!-- 春节 -->
+      <article class="card">
+        <div class="card__image">
+          <img
+            src="https://images.pexels.com/photos/16133738/pexels-photo-16133738.jpeg?auto=compress&cs=tinysrgb&w=800"
+            srcset="
+              https://images.pexels.com/photos/16133738/pexels-photo-16133738.jpeg?auto=compress&cs=tinysrgb&w=400 400w,
+              https://images.pexels.com/photos/16133738/pexels-photo-16133738.jpeg?auto=compress&cs=tinysrgb&w=800 800w
+            "
+            sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 33vw"
+            alt="春节红色装饰"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="card__date">农历正月初一</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">春节</h3>
+          <p class="card__subtitle">岁首 · 团圆</p>
+          <p class="card__text">辞旧迎新，爆竹声中一岁除。贴春联、包饺子、守岁拜年，是中国人最盛大的团圆时刻。</p>
+        </div>
+      </article>
+
+      <!-- 元宵 -->
+      <article class="card">
+        <div class="card__image">
+          <img
+            src="https://images.pexels.com/photos/30617273/pexels-photo-30617273.jpeg?auto=compress&cs=tinysrgb&w=800"
+            srcset="
+              https://images.pexels.com/photos/30617273/pexels-photo-30617273.jpeg?auto=compress&cs=tinysrgb&w=400 400w,
+              https://images.pexels.com/photos/30617273/pexels-photo-30617273.jpeg?auto=compress&cs=tinysrgb&w=800 800w
+            "
+            sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 33vw"
+            alt="元宵花灯"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="card__date">农历正月十五</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">元宵节</h3>
+          <p class="card__subtitle">灯节 · 月圆</p>
+          <p class="card__text">东风夜放花千树。赏花灯、猜灯谜、吃元宵，是春节庆典的华彩收尾。</p>
+        </div>
+      </article>
+
+      <!-- 清明 -->
+      <article class="card">
+        <div class="card__image">
+          <img
+            src="https://images.pexels.com/photos/34515300/pexels-photo-34515300.jpeg?auto=compress&cs=tinysrgb&w=800"
+            srcset="
+              https://images.pexels.com/photos/34515300/pexels-photo-34515300.jpeg?auto=compress&cs=tinysrgb&w=400 400w,
+              https://images.pexels.com/photos/34515300/pexels-photo-34515300.jpeg?auto=compress&cs=tinysrgb&w=800 800w
+            "
+            sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 33vw"
+            alt="清明时节的传统建筑"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="card__date">公历四月初</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">清明节</h3>
+          <p class="card__subtitle">踏青 · 追思</p>
+          <p class="card__text">清明时节雨纷纷。扫墓祭祖、踏青插柳，在追念先人中迎接春天的生机。</p>
+        </div>
+      </article>
+
+      <!-- 端午 -->
+      <article class="card">
+        <div class="card__image">
+          <img
+            src="https://images.pexels.com/photos/26382130/pexels-photo-26382130.jpeg?auto=compress&cs=tinysrgb&w=800"
+            srcset="
+              https://images.pexels.com/photos/26382130/pexels-photo-26382130.jpeg?auto=compress&cs=tinysrgb&w=400 400w,
+              https://images.pexels.com/photos/26382130/pexels-photo-26382130.jpeg?auto=compress&cs=tinysrgb&w=800 800w
+            "
+            sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 33vw"
+            alt="端午龙舟竞渡"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="card__date">农历五月初五</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">端午节</h3>
+          <p class="card__subtitle">龙舟 · 粽香</p>
+          <p class="card__text">汨罗江上龙舟竞渡，门前艾草青青。吃粽子、佩香囊，纪念屈原，也祈求安康。</p>
+        </div>
+      </article>
+
+      <!-- 中秋 -->
+      <article class="card">
+        <div class="card__image">
+          <img
+            src="https://images.pexels.com/photos/9863692/pexels-photo-9863692.jpeg?auto=compress&cs=tinysrgb&w=800"
+            srcset="
+              https://images.pexels.com/photos/9863692/pexels-photo-9863692.jpeg?auto=compress&cs=tinysrgb&w=400 400w,
+              https://images.pexels.com/photos/9863692/pexels-photo-9863692.jpeg?auto=compress&cs=tinysrgb&w=800 800w
+            "
+            sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 33vw"
+            alt="中秋月饼"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="card__date">农历八月十五</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">中秋节</h3>
+          <p class="card__subtitle">月圆 · 人聚</p>
+          <p class="card__text">但愿人长久，千里共婵娟。赏月、吃月饼、饮桂花酒，是中国人最诗意的团圆。</p>
+        </div>
+      </article>
+
+      <!-- 重阳 -->
+      <article class="card">
+        <div class="card__image">
+          <img
+            src="https://images.pexels.com/photos/34642999/pexels-photo-34642999.jpeg?auto=compress&cs=tinysrgb&w=800"
+            srcset="
+              https://images.pexels.com/photos/34642999/pexels-photo-34642999.jpeg?auto=compress&cs=tinysrgb&w=400 400w,
+              https://images.pexels.com/photos/34642999/pexels-photo-34642999.jpeg?auto=compress&cs=tinysrgb&w=800 800w
+            "
+            sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 33vw"
+            alt="重阳菊花"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="card__date">农历九月初九</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">重阳节</h3>
+          <p class="card__subtitle">登高 · 敬老</p>
+          <p class="card__text">遥知兄弟登高处，遍插茱萸少一人。登高望远、赏菊饮酒，寄托思念与敬老之情。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="quote" id="quote">
+    <div class="quote__image">
+      <img
+        src="https://images.pexels.com/photos/7363964/pexels-photo-7363964.jpeg?auto=compress&cs=tinysrgb&w=800"
+        srcset="
+          https://images.pexels.com/photos/7363964/pexels-photo-7363964.jpeg?auto=compress&cs=tinysrgb&w=400 400w,
+          https://images.pexels.com/photos/7363964/pexels-photo-7363964.jpeg?auto=compress&cs=tinysrgb&w=800 800w
+        "
+        sizes="(max-width: 900px) 100vw, 50vw"
+        alt="中式餐桌上的传统点心"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <div class="quote__content">
+      <div class="quote__mark">“</div>
+      <blockquote class="quote__text">
+        节者，天地之交会也；令者，人物之恒仪也。依时而动，顺节而行，是中国人在漫长岁月里沉淀下来的生活美学。
+      </blockquote>
+      <cite class="quote__author">—— 岁时百问 · 意译</cite>
+    </div>
+  </section>
+
+  <section class="cta" id="cta">
+    <div class="cta__bg">
+      <img
+        src="https://images.pexels.com/photos/15421215/pexels-photo-15421215.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        srcset="
+          https://images.pexels.com/photos/15421215/pexels-photo-15421215.jpeg?auto=compress&cs=tinysrgb&w=640 640w,
+          https://images.pexels.com/photos/15421215/pexels-photo-15421215.jpeg?auto=compress&cs=tinysrgb&w=1280 1280w,
+          https://images.pexels.com/photos/15421215/pexels-photo-15421215.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w
+        "
+        sizes="100vw"
+        alt="中国传统红灯笼"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <div class="cta__overlay" aria-hidden="true"></div>
+    <div class="cta__content">
+      <div class="section__label">
+        <!-- Lucide: Compass -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+        </svg>
+        开启探索
+      </div>
+      <h2 class="cta__title">让节令回到生活</h2>
+      <p class="cta__desc">
+        不只是日历上的标记，更是连接过去与现在、家人与故土的温柔仪式。
+      </p>
+      <a href="#" class="btn btn--primary">
+        订阅节令指南
+        <!-- Lucide: Mail -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <ul class="footer__links">
+      <li><a href="#">关于节令</a></li>
+      <li><a href="#">节日历法</a></li>
+      <li><a href="#">联系我们</a></li>
+    </ul>
+    <p>© 2026 节令 · 图片由 Pexels 提供 · 设计遵循 super-frontend-design</p>
+  </footer>
+
+  <script>
+    // 导航滚动时添加背景
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav--scrolled', window.scrollY > 40);
+    });
+
+    // 简易滚动出现动画
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>

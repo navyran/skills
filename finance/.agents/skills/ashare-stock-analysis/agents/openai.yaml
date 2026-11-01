@@ -1,0 +1,4 @@
+interface:
+  display_name: "A股个股分析"
+  short_description: "将A股代码或股票名称解析为股票标的，并按专业投研提示词输出中文个股分析。"
+  default_prompt: "分析 600519 或 贵州茅台"

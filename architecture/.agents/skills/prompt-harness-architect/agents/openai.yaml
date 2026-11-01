@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prompt Harness Architect"
+  short_description: "Design production prompts for chatbots, multimodal review, and LLM harnesses."
+  default_prompt: "Turn this rough prompt into a production-ready harness with structure, uncertainty rules, output controls, and eval cases."

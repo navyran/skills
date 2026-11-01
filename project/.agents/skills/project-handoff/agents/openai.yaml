@@ -1,0 +1,3 @@
+interface:
+  display_name: "项目任务交接"
+  short_description: "为其他 Agent 保存任务目标、原始提示词、分支状态、执行进展及续接步骤"

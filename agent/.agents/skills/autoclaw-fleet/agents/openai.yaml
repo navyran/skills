@@ -1,0 +1,4 @@
+interface:
+  display_name: "AutoClaw 双机调度"
+  short_description: "Dispatch, deploy, and monitor two Windows workers"
+  default_prompt: "Use $autoclaw-fleet to dispatch, deploy, or monitor the requested Windows AutoClaw target."
